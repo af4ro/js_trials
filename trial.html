@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <h2>Testing here</h2>
+</head>
+
+<body>
+    <div id="container" style="display:block" class=0></div>
+
+    <style>
+        div{
+            height:auto;
+            width:50px;
+        }
+
+    </style>
+
+    <script>
+        var testJSON = {
+            title: "Node",
+            children: [{
+                title: "Node1",
+                children: [{
+                    title: "node1a",
+                    children: [{
+                        title: "node1aa",
+                        children: []
+                    }, {
+                        title: "node1ab",
+                        children: [{
+                            title: "node1aba",
+                            children: null
+                        }]
+                    }]
+                }, {
+                    title: "node1b",
+                    children: [{
+                        title: "node1ba",
+                        children: []
+                    }]
+                }]
+            }, {
+                title: "node2",
+                children: [{
+                    title: "node2a",
+                    children: null
+                }, {
+                    title: "node2b",
+                    children: []
+                }]
+            }, {
+                title: "node3",
+                children: []
+            }]
+        }
+
+        function disp(obj) {
+            var x = document.getElementById(obj + 1);
+            console.log(x);
+            if (x != null) {
+                if (x.style.display === 'none') {
+                    x.style.display = 'block';
+                } else {
+                    x.style.display = 'none';
+                }
+            }
+        }
+
+        function recur(obj, num) {
+            if (obj === null || obj === [])
+                return null;
+            var tags = "<div id = " + num + " onclick = \"disp(" + num + ")\">";
+            tags += (" ".repeat(num)) + obj.title;
+            for (var i in obj.children) {
+                tags += recur(obj.children[i], num + 1);
+            }
+            tags += "</div>";
+            return tags;
+        }
+
+
+        document.getElementById("container").innerHTML = recur(testJSON, 1);
+
+    </script>
+</body>
+
+</html>
